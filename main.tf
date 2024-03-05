@@ -8,13 +8,14 @@ terraform {
 }
 
 provider "google" {
-  project = "taxi-data-project-416216"
-  region  = "europe-west1-b"
+  credentials = file(var.credentials)
+  project = var.project
+  region  = var.region
 }
 
-resource "google_storage_bucket" "auto-expire" {
-  name          = "taxi-data-project-416216-bucket"
-  location      = "US"
+resource "google_storage_bucket" "demo-bucket" {
+  name          = var.gcs_bucket_name
+  location      = var.location
   force_destroy = true
 
   lifecycle_rule {
@@ -25,4 +26,10 @@ resource "google_storage_bucket" "auto-expire" {
       type = "AbortIncompleteMultipartUpload"
     }
   }
+}
+
+resource "google_bigquery_dataset" "taxi-data-dataset" {
+  dataset_id = var.bq_dataset_name
+  location = var.location
+    
 }
