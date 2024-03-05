@@ -37,5 +37,5 @@ variable "gcs_bucket_name" {
 variable "gcs_storage_class" {
   type        = string
   default     = "STANDARD"
-  description = "Bucket Storage Class"
+  description = "GCP Bucket Storage Class"
 }
